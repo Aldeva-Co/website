@@ -110,7 +110,7 @@
         business_type: data.type || '', who_does_books: data.who || '', software: data.sw || '', revenue: data.rev || '',
         page: location.pathname };
       fetch('https://formsubmit.co/ajax/michael.pour11@gmail.com', { method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) }).catch(() => {});
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, referrerPolicy: 'origin', body: JSON.stringify(payload) }).catch(() => {});
       form.querySelector('.form-body').style.display = 'none';
       form.querySelector('.form-done').style.display = 'block';
       form.scrollIntoView({ behavior: 'smooth', block: 'center' });
