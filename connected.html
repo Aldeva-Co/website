@@ -1,0 +1,31 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>QuickBooks connected — Aldeva Finance</title><link rel="icon" href="img/favicon_64.png">
+<style>
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:#F6F9FC;color:#0F172A}
+.card{max-width:640px;margin:10vh auto;background:#fff;border:1px solid #E2E8F0;border-radius:20px;padding:36px;box-shadow:0 12px 32px rgba(15,23,42,.08)}
+img{height:34px} h1{font-size:1.6rem;margin:22px 0 8px} p{color:#334155;line-height:1.6}
+.err{color:#DC2626} code{display:block;word-break:break-all;background:#F1F5F9;border-radius:10px;padding:12px;font-size:.85rem;margin:14px 0}
+button{background:#2EE6D6;color:#0B1220;border:0;border-radius:999px;padding:12px 22px;font-weight:700;cursor:pointer}
+</style></head><body><div class="card">
+<img src="img/logo.png" alt="Aldeva Finance">
+<h1 id="h">Connecting…</h1><p id="p"></p>
+<div id="tech" hidden><p class="small">For your Aldeva finance lead — this address completes the connection:</p>
+<code id="u"></code><button id="c">Copy address</button></div>
+</div>
+<script>
+// QuickBooks (Intuit OAuth) sends the owner back here after they approve the connection.
+const q = new URLSearchParams(location.search), h = document.getElementById('h'), p = document.getElementById('p');
+if (q.get('error')) {
+  h.textContent = 'The connection was not completed'; h.className = 'err';
+  p.textContent = 'QuickBooks reported: ' + q.get('error') + '. Nothing was changed in your books. Please contact your Aldeva finance lead.';
+} else if (q.get('code') && q.get('realmId')) {
+  h.textContent = 'QuickBooks is connected';
+  p.textContent = 'Thank you. Your books stay in your own QuickBooks — we will confirm by email before anything is posted. You can close this page.';
+  document.getElementById('tech').hidden = false;
+  document.getElementById('u').textContent = location.href;
+  document.getElementById('c').onclick = () => navigator.clipboard.writeText(location.href).then(() => { document.getElementById('c').textContent = 'Copied'; });
+} else {
+  h.textContent = 'Aldeva Finance'; p.innerHTML = 'Nothing to connect here. <a href="/">Go to aldevafinance.com</a>';
+}
+</script></body></html>
