@@ -110,10 +110,16 @@
         business_type: data.type || '', who_does_books: data.who || '', software: data.sw || '', revenue: data.rev || '',
         page: location.pathname };
       fetch('https://formsubmit.co/ajax/michael.pour11@gmail.com', { method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, referrerPolicy: 'origin', body: JSON.stringify(payload) }).catch(() => {});
-      form.querySelector('.form-body').style.display = 'none';
-      form.querySelector('.form-done').style.display = 'block';
-      form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, referrerPolicy: 'origin', body: JSON.stringify(payload) })
+        .then(r => r.json()).then(r => { if (String(r.success) !== 'true') throw r; ok(); })
+        .catch(() => { err.textContent = 'Sorry — that did not go through. Please try again or call (647) 521-9929.'; err.style.display = 'block'; });
+      function ok() {
+        if (window.gtag) { gtag('event', 'generate_lead'); if (window.ALDEVA_LEAD) gtag('event', 'conversion', { send_to: window.ALDEVA_LEAD }); }
+        if (window.fbq) fbq('track', 'Lead');
+        form.querySelector('.form-body').style.display = 'none';
+        form.querySelector('.form-done').style.display = 'block';
+        form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
     });
     // preselect business type from ?type=
     const t = new URLSearchParams(location.search).get('type');
