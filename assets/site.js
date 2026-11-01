@@ -59,9 +59,9 @@
         const out = router.querySelector('.router-out');
         const growing = ans.who === 'team' || ans.rev === 'big' || (ans.who === 'pro' && ans.rev !== 'small');
         out.innerHTML = growing
-          ? 'You\'re a <b>growing company</b>. <a class="link-arrow" href="growing-companies.html">See what we do for you</a>'
-          : 'You\'re a <b>local business</b>. <a class="link-arrow" href="local-business.html">See what we do for you</a>';
-        if (ans.who === 'pro') out.innerHTML += '<br><span class="small">Keeping your bookkeeper? <a href="keep-your-bookkeeper.html">Here\'s how that works</a>.</span>';
+          ? 'You\'re a <b>growing company</b>. <a class="link-arrow" href="growing-companies">See what we do for you</a>'
+          : 'You\'re a <b>local business</b>. <a class="link-arrow" href="local-business">See what we do for you</a>';
+        if (ans.who === 'pro') out.innerHTML += '<br><span class="small">Keeping your bookkeeper? <a href="keep-your-bookkeeper">Here\'s how that works</a>.</span>';
         out.style.display = 'block';
       }
     }));
