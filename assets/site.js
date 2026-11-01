@@ -109,7 +109,7 @@
       const v = id => (form.querySelector('#' + id) || {}).value || '';
       const payload = { _subject: 'New free books review request — ' + v('f-name'), _template: 'table', _captcha: 'false',
         name: v('f-name'), email: v('f-email'), phone: v('f-phone'), note: v('f-bug'),
-        business_type: data.type || '', who_does_books: data.who || '', software: data.sw || '', revenue: data.rev || '',
+        business_type: data.type || '', who_does_books: data.who || '', software: data.sw || '', hours_per_week: data.hours || '',
         page: location.pathname };
       fetch('https://formsubmit.co/ajax/michael.pour11@gmail.com', { method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, referrerPolicy: 'origin', body: JSON.stringify(payload) })
