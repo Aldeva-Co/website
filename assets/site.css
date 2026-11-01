@@ -335,3 +335,12 @@ html,body{overflow-x:clip}
 .vid169 video{width:100%;aspect-ratio:16/9;border-radius:18px;background:#0B1220;box-shadow:var(--shadow)}
 .vid169 h3{margin:16px 0 4px} .vid169 p{margin:0;font-size:.95rem}
 @media (max-width:860px){.vids169{grid-template-columns:1fr}}
+
+/* Books Health Check */
+[data-health] .q{margin-bottom:22px}
+.hscore{font-family:var(--font-head);color:var(--navy);margin:6px 0 4px}.hscore b{font-size:4.2rem;line-height:1}.hscore span{font-size:1.4rem;color:var(--muted,#64748b)}
+.hgate{margin-top:26px;border-top:1px solid var(--line);padding-top:22px}
+.hfix{padding-left:20px}.hfix li{margin:0 0 12px}
+.clist{list-style:none;padding:0}.clist li{padding:10px 0 10px 34px;border-bottom:1px solid var(--line);position:relative}
+.clist li::before{content:"";position:absolute;left:4px;top:13px;width:16px;height:16px;border:2px solid var(--teal);border-radius:4px}
+@media print{header,footer,.sticky-cta,.btn{display:none!important}.page-hero{background:#fff!important;color:#000!important}}

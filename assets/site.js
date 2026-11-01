@@ -127,4 +127,61 @@
     const t = new URLSearchParams(location.search).get('type');
     if (t) data.type = t;
   }
+  // Books Health Check (lead magnet): 6 questions -> score -> contact gate -> fixes + checklist
+  const hc = document.querySelector('[data-health]');
+  if (hc) {
+    const ans = {}, step = n => hc.querySelectorAll('[data-hstep]').forEach(s => s.classList.toggle('on', s.dataset.hstep === n));
+    const FIX = {
+      h0: 'Your books are behind. Behind books hide problems: missed bills, unpaid invoices, surprise taxes. Fix: post every transaction daily, automatically.',
+      h1: 'Too many hours go into bookkeeping. At $40/hour, 10 hours a week is about $20,000 a year. Fix: let software post the routine and approve only the exceptions.',
+      h2: 'Accounts are not matched to statements every month. That is how duplicates and missing items slip through. Fix: a monthly match to the bank, to the cent.',
+      h3: 'Bills and receipts are not flowing into the books. Fix: pull them from your email automatically and attach them to each entry.',
+      h4: "You don't have a reliable monthly profit number. Fix: close the month by the 10th with a CPA review, so the P&L is one you can trust.",
+      h5: 'You can\'t see cash ahead. Fix: a simple 13-week cash view with payroll, rent, tax and big bills, so there are no surprises.'
+    };
+    let score = 0, weak = [];
+    hc.querySelectorAll('.chips').forEach(g => g.addEventListener('click', e => {
+      const b = e.target.closest('button'); if (!b) return; e.preventDefault();
+      g.querySelectorAll('button').forEach(x => x.classList.remove('on')); b.classList.add('on'); ans[g.dataset.q] = +b.dataset.v;
+      if (Object.keys(ans).length === 1 && window.gtag) gtag('event', 'health_start');
+    }));
+    hc.querySelector('[data-hscore]').addEventListener('click', e => {
+      e.preventDefault();
+      const err = hc.querySelector('[data-hstep="q"] .err');
+      if (Object.keys(ans).length < 6) { err.style.display = 'block'; return; }
+      err.style.display = 'none';
+      const tot = Object.values(ans).reduce((a, b) => a + b, 0);
+      score = Math.round(tot / 18 * 100);
+      weak = Object.keys(FIX).filter(k => ans[k] <= 1);
+      if (!weak.length) weak = Object.keys(FIX).filter(k => ans[k] === 2);
+      const band = score >= 80 ? ['In good shape', 'Your books are better than most. A few small fixes would make them run themselves.']
+        : score >= 50 ? ['Leaking time and money', 'The basics are there, but hours and money are slipping through. ' + weak.length + ' areas need attention.']
+        : ['At risk', 'Your books are likely hiding problems, and they are costing you hours every week. ' + weak.length + ' areas need attention.'];
+      hc.querySelector('[data-hnum]').textContent = score;
+      hc.querySelector('[data-hband]').textContent = band[0];
+      hc.querySelector('[data-hline]').textContent = band[1];
+      step('score'); hc.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (window.gtag) gtag('event', 'health_score', { value: score });
+    });
+    hc.querySelector('[data-hback]').addEventListener('click', e => { e.preventDefault(); step('q'); });
+    hc.addEventListener('submit', e => {
+      e.preventDefault();
+      const v = id => (hc.querySelector('#' + id) || {}).value.trim();
+      const err = hc.querySelector('.hgate .err');
+      if (!v('h-name') || !v('h-phone') || !v('h-email')) { err.style.display = 'block'; return; }
+      const answers = {}; hc.querySelectorAll('.chips').forEach(g => { const o = g.querySelector('.on'); answers[g.previousElementSibling.textContent] = o ? o.textContent : ''; });
+      const payload = Object.assign({ _subject: 'New Books Health Check — ' + v('h-name') + ' (score ' + score + ')', _template: 'table', _captcha: 'false',
+        name: v('h-name'), email: v('h-email'), phone: v('h-phone'), score: score, page: location.pathname }, answers);
+      fetch('https://formsubmit.co/ajax/michael.pour11@gmail.com', { method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, referrerPolicy: 'origin', body: JSON.stringify(payload) })
+        .then(r => r.json()).then(r => { if (String(r.success) !== 'true') throw r; done(); })
+        .catch(() => { err.textContent = 'Sorry — that did not go through. Please try again or call (647) 521-9929.'; err.style.display = 'block'; });
+      function done() {
+        if (window.gtag) { gtag('event', 'generate_lead', { method: 'health_check' }); if (window.ALDEVA_LEAD) gtag('event', 'conversion', { send_to: window.ALDEVA_LEAD }); }
+        if (window.fbq) fbq('track', 'Lead');
+        hc.querySelector('[data-hfix]').innerHTML = '<li><b>Your score: ' + score + '/100.</b></li>' + weak.map(k => '<li>' + FIX[k] + '</li>').join('');
+        step('done'); hc.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  }
 })();
