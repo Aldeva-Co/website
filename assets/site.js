@@ -77,14 +77,16 @@
   const h = location.hash.slice(1), tb = document.querySelector('[data-tab="' + h + '"]');
   if (tb) tb.click();
 
-  // 3-step free books review form (offline: nothing is sent anywhere yet)
+  // 2-step free books review form (offline: nothing is sent anywhere yet)
   const form = document.querySelector('[data-review-form]');
   if (form) {
     const steps = form.querySelectorAll('.fstep'), bars = form.querySelectorAll('.progress i'), data = {};
     let cur = 0;
-    const go = i => { cur = i; steps.forEach((s, k) => s.classList.toggle('on', k === i)); bars.forEach((b, k) => b.classList.toggle('on', k <= i)); };
+    const go = i => { cur = i; if (window.gtag) gtag('event', 'form_step', { step: i + 1 }); steps.forEach((s, k) => s.classList.toggle('on', k === i)); bars.forEach((b, k) => b.classList.toggle('on', k <= i)); };
+    let started = false;
     form.querySelectorAll('.chips').forEach(g => g.addEventListener('click', e => {
       const b = e.target.closest('button'); if (!b) return; e.preventDefault();
+      if (!started) { started = true; if (window.gtag) gtag('event', 'form_start'); }
       g.querySelectorAll('button').forEach(x => x.classList.remove('on')); b.classList.add('on'); data[g.dataset.q] = b.textContent;
     }));
     form.addEventListener('click', e => {
@@ -123,6 +125,6 @@
     });
     // preselect business type from ?type=
     const t = new URLSearchParams(location.search).get('type');
-    if (t) form.querySelectorAll('[data-q="type"] button').forEach(b => { if (b.dataset.v === t) b.click(); });
+    if (t) data.type = t;
   }
 })();
