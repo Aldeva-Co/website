@@ -184,4 +184,6 @@
       }
     });
   }
+  // booking button clicks (Google Calendar appointment page)
+  document.addEventListener('click', e => { if (e.target.closest('[data-book]')) { if (window.gtag) gtag('event', 'book_click'); if (window.fbq) fbq('track', 'Schedule'); } });
 })();
