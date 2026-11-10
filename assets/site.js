@@ -136,7 +136,7 @@
       h1: 'Too many hours go into bookkeeping. At $40/hour, 10 hours a week is about $20,000 a year. Fix: let software post the routine and approve only the exceptions.',
       h2: 'Accounts are not matched to statements every month. That is how duplicates and missing items slip through. Fix: a monthly match to the bank, to the cent.',
       h3: 'Bills and receipts are not flowing into the books. Fix: pull them from your email automatically and attach them to each entry.',
-      h4: "You don't have a reliable monthly profit number. Fix: close the month by the 10th with a CPA review, so the P&L is one you can trust.",
+      h4: "You don't have a reliable monthly profit number. Fix: close the month by the 10th with a CFO review, so the P&L is one you can trust.",
       h5: 'You can\'t see cash ahead. Fix: a simple 13-week cash view with payroll, rent, tax and big bills, so there are no surprises.'
     };
     let score = 0, weak = [];
