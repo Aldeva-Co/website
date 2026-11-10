@@ -1,5 +1,9 @@
 /* Aldeva Finance — small site behaviours (no libraries). */
 (function () {
+  // owner opt-out toast (?me=1 / ?me=0, set in <head>)
+  if (window.ALDEVA_TOAST) { const d = document.createElement('div'); d.textContent = window.ALDEVA_TOAST;
+    d.style.cssText = 'position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#111;color:#fff;padding:10px 16px;border-radius:8px;font:14px/1.3 Inter,sans-serif;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,.25)';
+    document.body.appendChild(d); setTimeout(() => d.remove(), 4000); }
   // mobile menu
   const mb = document.querySelector('.menu-btn'), nav = document.querySelector('.nav');
   if (mb && nav) mb.addEventListener('click', () => nav.classList.toggle('open'));
