@@ -362,3 +362,4 @@ html,body{overflow-x:clip}
   .nav a{padding:12px 4px;font-size:1.05rem}
   .nav.open{display:flex} .menu-btn{display:block}
 }
+@media (min-width:1081px){.nav{margin-left:28px}}
