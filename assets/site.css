@@ -344,3 +344,21 @@ html,body{overflow-x:clip}
 .clist{list-style:none;padding:0}.clist li{padding:10px 0 10px 34px;border-bottom:1px solid var(--line);position:relative}
 .clist li::before{content:"";position:absolute;left:4px;top:13px;width:16px;height:16px;border:2px solid var(--teal);border-radius:4px}
 @media print{header,footer,.sticky-cta,.btn{display:none!important}.page-hero{background:#fff!important;color:#000!important}}
+/* services page + home services strip (11-21) */
+.tiles.four{grid-template-columns:repeat(2,1fr)}
+@media (max-width:560px){.tiles.four{grid-template-columns:1fr}}
+.tile .link-arrow{display:inline-block;margin-top:12px;font-size:.95rem}
+.svc-who{margin-top:22px;font-size:.97rem}
+.footnote{margin-top:26px;font-size:.84rem;color:var(--muted)}
+@media (max-width:1180px) and (min-width:921px){.nav{gap:16px}.nav a{font-size:.92rem}}
+/* industry pages + video slots + 7-item nav (11-21) */
+.yt169{max-width:960px;margin:0 auto;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:#0B1220;box-shadow:var(--shadow)}
+.yt169 iframe{width:100%;height:100%;border:0;display:block}
+.vidcap{margin:14px 0 0;font-size:.95rem}
+.cred{margin-top:24px;font-size:.97rem;color:var(--muted)}
+@media (max-width:1240px) and (min-width:1081px){.nav{gap:14px}.nav a{font-size:.9rem}}
+@media (max-width:1080px){
+  .nav{display:none;position:absolute;top:70px;left:0;right:0;background:#fff;flex-direction:column;align-items:stretch;padding:12px 20px 22px;gap:4px;border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
+  .nav a{padding:12px 4px;font-size:1.05rem}
+  .nav.open{display:flex} .menu-btn{display:block}
+}
