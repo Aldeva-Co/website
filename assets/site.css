@@ -365,3 +365,12 @@ html,body{overflow-x:clip}
 @media (min-width:1081px){.nav{margin-left:22px}.nav a,.top .btn{white-space:nowrap}}
 @media (max-width:1400px) and (min-width:1081px){.nav{gap:14px}.nav a{font-size:.9rem}}
 .yt169 video{width:100%;height:100%;display:block;background:#0B1220}
+/* contact strip: call + email (C-20, 11-24) */
+.contact-strip{padding:26px 0;background:var(--bg-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.contact-in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 28px}
+.contact-in p{margin:0;color:var(--body);max-width:620px}
+.contact-in p b{color:var(--ink)}
+.contact-btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn.ghost{background:#fff;color:var(--ink);border:1.5px solid var(--ink);box-shadow:none}
+.btn.ghost:hover{box-shadow:0 8px 20px rgba(15,23,42,.12)}
+@media (max-width:640px){.contact-btns{width:100%}.contact-btns .btn{flex:1 1 100%}}
